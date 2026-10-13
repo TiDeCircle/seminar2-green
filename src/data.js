@@ -7,6 +7,12 @@ export const LINKS = {
   instagram: 'https://www.instagram.com/baitong__j/',
 }
 
+// โซเชียลของงาน (แสดงที่ footer) — ช่องไหนว่างไว้จะไม่แสดงไอคอน
+export const SOCIAL = {
+  instagram: 'https://www.instagram.com/greeninaction.space/',
+  tiktok: 'https://www.tiktok.com/@greeninaction.space',
+}
+
 // เวลาเริ่มงาน (เวลาประเทศไทย) ใช้กับตัวนับถอยหลัง
 export const EVENT_START = '2026-11-20T09:00:00+07:00'
 export const EVENT_END = '2026-11-20T12:00:00+07:00'

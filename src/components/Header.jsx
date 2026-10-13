@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SHOW_FLOORPLAN } from '../data.js'
 
-const NAV = [
+export const NAV = [
   { href: '#about', label: 'About' },
   { href: '#schedule', label: 'Schedule' },
   { href: '#map', label: 'Map' },
