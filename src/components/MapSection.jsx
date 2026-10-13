@@ -32,6 +32,7 @@ const WINDOWS = [
 export default function MapSection() {
   const q = encodeURIComponent(MAP.query)
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${q}`
+  const embed = `https://maps.google.com/maps?q=${q}&z=16&output=embed`
   const artRef = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -137,7 +138,7 @@ export default function MapSection() {
           )}
         </div>
 
-        {/* จุดกดทับปุ่ม GOOGLE MAPS และรูปแผนที่ในภาพ */}
+        {/* จุดกดทับปุ่ม GOOGLE MAPS ในภาพ */}
         <a
           className="map__hotspot"
           style={box(262, 457, 299, 52)}
@@ -146,15 +147,16 @@ export default function MapSection() {
           rel="noreferrer"
           aria-label="นำทางด้วย Google Maps"
         />
-        <a
-          className="map__hotspot map__hotspot--thumb"
-          style={box(108, 559, 608, 305)}
-          href={directions}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="เปิดแผนที่ใน Google Maps"
-          tabIndex={-1}
-        />
+        {/* แผนที่ Google จริง วางทับรูปแผนที่ในภาพ เลื่อน/ซูมดูได้ */}
+        <div className="map__embed" style={box(110, 560, 606, 428)}>
+          <iframe
+            title="แผนที่ อาคาร Tourism Tower (A5) มหาวิทยาลัยกรุงเทพ"
+            src={embed}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
       </div>
     </section>
   )
