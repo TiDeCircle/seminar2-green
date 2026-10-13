@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<title>Green in Action — Promo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600&family=Kanit:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --sky: #4fbdec;
+    --navy: #0b2c63;
+    --navy-900: #071a3d;
+    --card-blue: #12549b;
+    --teal: #3cc6cf;
+    --gold: #f4d98b;
+    --gold-deep: #e2b94f;
+    --green: #2f9e4b;
+    --mint: #eaf8ef;
+    --ink: #0f2340;
+    --white: #fff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #000; }
+  #stage {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    font-family: 'Anuphan', sans-serif;
+    color: var(--ink);
+    background: var(--navy-900);
+  }
+  .scene { position: absolute; inset: 0; overflow: hidden; }
+  .abs { position: absolute; }
+  img { display: block; max-width: none; }
+  .center-x { left: 50%; }
+
+  /* ── world (ท้องฟ้า เมฆ กังหัน เนิน) ── */
+  .world { position: absolute; height: 1920px; width: 4608px; top: 0; transform-origin: 50% 75%; }
+  .world > img { position: absolute; }
+
+  /* ── type ── */
+  .head { font-family: 'Kanit', sans-serif; font-weight: 700; }
+  .vtitle {
+    position: absolute;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    line-height: 1.18;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .vtitle::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    color: #fff;
+    -webkit-text-stroke: 0.22em #fff;
+    filter: drop-shadow(0 8px 0 rgba(11, 44, 99, 0.18)) drop-shadow(0 16px 24px rgba(11, 44, 99, 0.3));
+    z-index: 0;
+    white-space: pre;
+  }
+  .vtitle span {
+    position: relative;
+    z-index: 1;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    white-space: pre;
+  }
+  .vtitle.green span { background-image: linear-gradient(180deg, #8be27c 0%, #35b85a 45%, #13803f 100%); }
+  .vtitle.gold span { background-image: linear-gradient(180deg, #fff6cf 0%, #f6d77c 45%, #d39b2e 100%); }
+  .vtitle.gold::before { filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.3)) drop-shadow(0 0 30px rgba(244, 217, 139, 0.4)); }
+
+  .tag {
+    position: absolute;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: 0.06em;
+    padding: 6px 34px 8px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(180deg, #fbe39b, #e7bb4b);
+    border: 5px solid #fff;
+    text-shadow: 0 2px 3px rgba(150, 100, 0, 0.55);
+    box-shadow: 0 12px 26px -10px rgba(11, 44, 99, 0.5);
+    white-space: nowrap;
+  }
+
+  .pill {
+    position: absolute;
+    left: 50%;
+    background: #fff;
+    border-radius: 999px;
+    padding: 18px 44px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+    font-size: 44px;
+    color: var(--navy);
+    box-shadow: 0 20px 40px -18px rgba(11, 44, 99, 0.55);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .pill i { font-style: normal; font-size: 46px; }
+
+  .sparkle { position: absolute; fill: var(--gold-deep); stroke: #fff; stroke-width: 1.4; paint-order: stroke; }
+  .star { position: absolute; fill: var(--gold); }
+
+  /* ── speaker ── */
+  .portrait {
+    position: absolute;
+    width: 620px;
+    height: 820px;
+    border-radius: 44px;
+    overflow: hidden;
+    border: 10px solid var(--gold);
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+  .badge {
+    position: absolute;
+    left: 90px;
+    right: 90px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(244, 217, 139, 0.55);
+    border-radius: 30px;
+    padding: 20px 30px 20px 92px;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .badge b { position: absolute; left: 30px; top: 18px; color: var(--gold); font-size: 44px; }
+
+  /* ── topics ── */
+  .topic {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    background: #fff;
+    border-radius: 36px;
+    padding: 34px 40px 34px 150px;
+    box-shadow: 0 30px 50px -28px rgba(11, 44, 99, 0.55);
+  }
+  .topic .n {
+    position: absolute;
+    left: 36px;
+    top: 50%;
+    width: 86px;
+    height: 86px;
+    margin-top: -43px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 44px;
+  }
+  .topic h3 { margin: 0 0 4px; font-family: 'Kanit', sans-serif; font-size: 44px; color: var(--navy); line-height: 1.25; }
+  .topic p { margin: 0; font-size: 31px; color: #4a5d78; line-height: 1.4; }
+
+  .card { position: absolute; width: 270px; transform-origin: 50% 60%; }
+  .card img { width: 100%; border-radius: 22px; box-shadow: 0 24px 40px -18px rgba(0, 0, 0, 0.8); }
+
+  .cta {
+    position: absolute;
+    left: 50%;
+    padding: 30px 70px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fbe7a6, var(--gold-deep));
+    color: var(--navy-900);
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 58px;
+    white-space: nowrap;
+    box-shadow: 0 20px 44px -14px rgba(226, 185, 79, 0.95);
+  }
+  .small { position: absolute; left: 0; right: 0; text-align: center; }
+  .qrcard {
+    position: absolute;
+    left: 50%;
+    width: 440px;
+    padding: 24px 24px 14px;
+    background: #fff;
+    border: 8px solid var(--gold);
+    border-radius: 44px;
+    box-shadow: 0 30px 60px -24px rgba(7, 26, 61, 0.7);
+    text-align: center;
+  }
+  .qrcard img { width: 100%; image-rendering: pixelated; }
+  .qrcard div { font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 40px; color: var(--navy); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+
+<script>
+const IMG = '../public/images/';
+const W = 1080, H = 1920;
+const stage = document.getElementById('stage');
+
+// ───────── helpers ─────────
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const p = (t, a, d) => clamp((t - a) / d);
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = {
+  out: (k) => 1 - Math.pow(1 - k, 3),
+  inOut: (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2),
+  back: (k) => { const c = 1.9; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); },
+  in: (k) => k * k * k,
+};
+function el(tag, cls, parent, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html != null) e.innerHTML = html;
+  (parent || stage).appendChild(e);
+  return e;
+}
+function img(src, cls, parent) {
+  const i = el('img', cls, parent);
+  i.src = IMG + src;
+  return i;
+}
+function css(e, o) { Object.assign(e.style, o); }
+const SPARK = '<path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/>';
+function spark(parent, x, y, size, cls = 'sparkle') {
+  const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  s.setAttribute('viewBox', '0 0 24 24');
+  s.setAttribute('class', cls);
+  s.innerHTML = SPARK;
+  css(s, { left: x + 'px', top: y + 'px', width: size + 'px', height: size + 'px' });
+  parent.appendChild(s);
+  return s;
+}
+function vtitle(parent, text, cls, size) {
+  const e = el('div', 'vtitle ' + cls, parent);
+  e.dataset.text = text;
+  el('span', '', e, text.replace(/</g, '&lt;'));
+  e.style.fontSize = size + 'px';
+  return e;
+}
+// pop-in: scale with overshoot + fade
+function pop(e, t, start, dur = 0.55, base = '') {
+  const k = p(t, start, dur);
+  css(e, { opacity: clamp(k * 3), transform: `${base} scale(${k === 0 ? 0.001 : E.back(k)})` });
+}
+function rise(e, t, start, dur = 0.6, dist = 60, base = '') {
+  const k = E.out(p(t, start, dur));
+  css(e, { opacity: k, transform: `${base} translateY(${(1 - k) * dist}px)` });
+}
+
+// ───────── world: ท้องฟ้า เมฆ กังหัน เนิน (ใช้ข้อมูลเดียวกับเว็บ) ─────────
+const CLOUDS = [
+  { src: 'cloud-1', left: 15.864, top: 0, width: 30.741, speed: 22, ph: 0.3 },
+  { src: 'cloud-2', left: 58.858, top: 0, width: 27.932, speed: 26, ph: 1.4 },
+  { src: 'cloud-3', left: 0, top: 5.63, width: 23.426, speed: 20, ph: 2.1, edge: -1 },
+  { src: 'cloud-4', left: 61.79, top: 5.926, width: 38.21, speed: 30, ph: 0.8, edge: 1 },
+  { src: 'cloud-5', left: 0, top: 28.222, width: 28.426, speed: 24, ph: 2.9, edge: -1 },
+  { src: 'cloud-6', left: 72.963, top: 34.889, width: 27.037, speed: 21, ph: 1.9, edge: 1 },
+  { src: 'cloud-7', left: 28.765, top: 35.333, width: 17.963, speed: 16, ph: 0.1 },
+];
+const TURBINES = [
+  { left: 9.784, top: 28.741, rotor: 16.358, towerW: 2.963, towerH: 47.63, speed: 7, ph: 40 },
+  { left: 34.691, top: 45.111, rotor: 11.018, towerW: 2.068, towerH: 31.926, speed: 5.5, ph: 200 },
+  { left: 65.556, top: 32.593, rotor: 15.807, towerW: 2.901, towerH: 46.37, speed: 8, ph: 10 },
+  { left: 83.827, top: 43.185, rotor: 10.849, towerW: 2.037, towerH: 31.778, speed: 6, ph: 130 },
+  { left: 100.525, top: 33.111, rotor: 15.68, towerW: 2.87, towerH: 43.481, speed: 7.5, ph: 300 },
+];
+function buildWorld(parent) {
+  const w = el('div', 'world', parent);
+  const sky = img('hero-sky.webp', '', w); css(sky, { left: 0, top: 0, width: '100%', height: '100%' });
+  const clouds = CLOUDS.map((c) => {
+    const i = img(c.src + '.webp', '', w);
+    css(i, { left: c.left + '%', top: c.top + '%', width: c.width + '%' });
+    return { i, c };
+  });
+  const hills = img('hero-hills.webp', '', w); css(hills, { left: 0, bottom: 0, width: '100%' });
+  const rotors = TURBINES.map((tb) => {
+    const tower = img('turbine-tower.webp', '', w);
+    css(tower, { left: tb.left + '%', top: tb.top + '%', width: tb.towerW + '%', height: tb.towerH + '%', transform: 'translateX(-50%)' });
+    const r = img('turbine-rotor.webp', '', w);
+    css(r, { left: tb.left + '%', top: tb.top + '%', width: tb.rotor + '%' });
+    return { r, tb };
+  });
+  return {
+    root: w,
+    update(t, { px = 0.68, zoom = 1 } = {}) {
+      css(w, { left: (W - 4608) * px + 'px', transform: `scale(${zoom})` });
+      clouds.forEach(({ i, c }) => {
+        const s = Math.sin((t / c.speed) * Math.PI * 2 + c.ph);
+        const dx = c.edge ? c.edge * (s * 0.5 + 0.5) * 12 : s * 6;
+        i.style.transform = `translateX(${dx}%)`;
+      });
+      rotors.forEach(({ r, tb }) => {
+        r.style.transform = `translate(-50%, -50%) rotate(${tb.ph + (t / tb.speed) * 360}deg)`;
+      });
+    },
+  };
+}
+
+// ดาวพื้นหลังโทนการ์ด
+function starfield(parent, n, seed) {
+  const stars = [];
+  let s = seed;
+  const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  for (let i = 0; i < n; i++) {
+    const size = 10 + rnd() * 34;
+    const st = spark(parent, rnd() * (W - 40), rnd() * (H - 40), size, 'star');
+    stars.push({ st, ph: rnd() * 6.28, sp: 1.5 + rnd() * 2 });
+  }
+  return (t) => stars.forEach(({ st, ph, sp }) => {
+    const k = 0.5 + 0.5 * Math.sin(t * sp + ph);
+    css(st, { opacity: 0.25 + 0.6 * k, transform: `scale(${0.6 + 0.5 * k}) rotate(${k * 30}deg)` });
+  });
+}
+function nightBg(parent) {
+  css(parent, { background: 'radial-gradient(ellipse at 50% 0%, rgba(60,198,207,.28), transparent 55%), linear-gradient(180deg, #12549b 0%, #0b2c63 45%, #071a3d 100%)' });
+}
+
+// ═════════ Scene A: Hero intro ═════════
+const A = el('div', 'scene');
+const worldA = buildWorld(A);
+const logoA = img('logo.webp', 'abs', A); css(logoA, { width: '940px', left: '70px', top: '330px' });
+const tagA = el('div', 'small head', A, 'เมื่อความคิดเรื่องความยั่งยืน<br>ไม่ได้หยุดอยู่แค่คำพูด');
+css(tagA, { top: '760px', fontSize: '58px', color: 'var(--navy)', lineHeight: 1.3, textShadow: '0 2px 0 rgba(255,255,255,.7)' });
+const sparksA = [spark(A, 120, 300, 90), spark(A, 900, 290, 60), spark(A, 960, 650, 80), spark(A, 60, 640, 50)];
+const seminarA = el('div', 'tag', A, 'SEMINAR · 20.11.2026'); css(seminarA, { top: '200px', left: '50%' });
+
+// ═════════ Scene B: Sustainable & Longevity ═════════
+const B = el('div', 'scene');
+css(B, { background: 'linear-gradient(180deg, #cdeefc 0%, #effaff 55%, #eaf8ef 100%)' });
+const stickerB = img('sustainable-longevity.webp', 'abs', B); css(stickerB, { width: '860px', left: '110px', top: '360px' });
+const titleB = vtitle(B, 'ดีต่อตัวเรา ดีต่อโลก', 'green', 104); css(titleB, { left: '50%', top: '1290px' });
+const subB = el('div', 'small', B, 'Healthy for me, Sustainable for Earth');
+css(subB, { top: '1480px', fontSize: '44px', fontFamily: 'Kanit', fontWeight: 600, color: 'var(--navy)' });
+const sparksB = [spark(B, 90, 330, 110), spark(B, 930, 1200, 90), spark(B, 820, 300, 60)];
+const turbB = img('turbine.webp', 'abs', B); css(turbB, { width: '260px', left: '-40px', top: '1360px', opacity: 0.5 });
+
+// ═════════ Scene C: Speaker ═════════
+const C = el('div', 'scene'); nightBg(C);
+const starsC = starfield(C, 22, 7);
+const tagC = el('div', 'tag', C, 'GUEST SPEAKER'); css(tagC, { top: '150px', left: '50%' });
+const portrait = el('div', 'portrait', C); img('speaker-portrait.webp', '', portrait);
+css(portrait, { left: '230px', top: '260px' });
+const nameC1 = vtitle(C, 'คุณใบตอง', 'gold', 120); css(nameC1, { left: '50%', top: '1110px' });
+const nameC2 = el('div', 'small head', C, 'จรีรัตน์ เพชรโสม'); css(nameC2, { top: '1270px', fontSize: '60px', color: '#fff' });
+const BADGES = ['Miss Earth Thailand 2021', 'UN Sustainable Ocean Ambassador', 'ทูตสิ่งแวดล้อมคนแรก มูลนิธิโลกสีเขียว'];
+const badges = BADGES.map((b, i) => { const e = el('div', 'badge', C, `<b>✦</b>${b}`); css(e, { top: 1400 + i * 128 + 'px' }); return e; });
+
+// ═════════ Scene D: Talk topics ═════════
+const D = el('div', 'scene');
+css(D, { background: 'linear-gradient(180deg, #effaff 0%, #cdeefc 100%)' });
+const tagD = el('div', 'tag', D, 'TALK SESSION'); css(tagD, { top: '250px', left: '50%' });
+const titleD1 = vtitle(D, 'รักษ์โลกแบบ', 'green', 116); css(titleD1, { left: '50%', top: '370px' });
+const titleD2 = vtitle(D, 'ไม่ต้องเป๊ะ', 'green', 140); css(titleD2, { left: '50%', top: '520px' });
+const TOPICS = [
+  ['จากเด็กชุมพรสู่เวที Miss Earth', 'จุดเริ่มต้นของความรักธรรมชาติ'],
+  ['Healthy for Me,<br>Sustainable for Earth', 'กิน ใช้ ซื้อ แบบดีต่อเราและโลก'],
+  ['เล่าเรื่องสีเขียวให้คนอยากฟัง', 'สื่อสารเรื่องสิ่งแวดล้อมให้สนุก'],
+];
+const topics = TOPICS.map(([h, d], i) => {
+  const e = el('div', 'topic', D, `<span class="n">${i + 1}</span><h3>${h}</h3><p>${d}</p>`);
+  css(e, { top: 840 + i * 290 + 'px' });
+  return e;
+});
+const hillsD = img('hills.webp', 'abs', D); css(hillsD, { width: '2400px', left: '-500px', bottom: '-40px' });
+const sparksD = [spark(D, 110, 360, 80), spark(D, 900, 600, 70)];
+
+// ═════════ Scene E: KV + cards ═════════
+const E_ = el('div', 'scene'); nightBg(E_);
+const starsE = starfield(E_, 24, 31);
+const kv = img('kv-title.webp', 'abs', E_); css(kv, { width: '900px', left: '90px', top: '200px' });
+const CARD_IMGS = ['card-exercise', 'card-sleep', 'card-reuse', 'card-recycle', 'card-energy', 'card-commute'];
+const cards = CARD_IMGS.map((c) => { const d = el('div', 'card', E_); img(c + '.webp', '', d); return d; });
+const capE = el('div', 'small head', E_, 'เลือก 1 การเปลี่ยนแปลงเล็ก ๆ<br>แล้วมาเขียนบน Green Pledge Board');
+css(capE, { top: '1660px', fontSize: '46px', color: '#fff', lineHeight: 1.35 });
+
+// ═════════ Scene F: Save the date ═════════
+const F = el('div', 'scene');
+css(F, { background: 'linear-gradient(180deg, #cdeefc 0%, #effaff 60%, #eaf8ef 100%)' });
+const tagF = el('div', 'tag', F, 'SAVE THE DATE'); css(tagF, { top: '230px', left: '50%' });
+const dayF = el('div', 'small head', F, 'วันศุกร์'); css(dayF, { top: '360px', fontSize: '64px', color: 'var(--navy)' });
+const bigF = vtitle(F, '20', 'green', 420); css(bigF, { left: '50%', top: '390px' });
+const monF = vtitle(F, 'พฤศจิกายน 2569', 'green', 104); css(monF, { left: '50%', top: '890px' });
+const PILLS = [['🕘', '09.00 – 12.00 น.'], ['📍', 'Tourism Tower A5-201'], ['🏨', 'Hotel Lobby มหาวิทยาลัยกรุงเทพ']];
+const pills = PILLS.map(([ic, tx], i) => { const e = el('div', 'pill', F, `<i>${ic}</i>${tx}`); css(e, { top: 1130 + i * 150 + 'px' }); return e; });
+const hillsF = img('hills.webp', 'abs', F); css(hillsF, { width: '2400px', left: '-700px', bottom: '-40px' });
+const sparksF = [spark(F, 150, 470, 100), spark(F, 860, 430, 70), spark(F, 880, 840, 90)];
+
+// ═════════ Scene G: Outro ═════════
+const G = el('div', 'scene');
+const worldG = buildWorld(G);
+const logoG = img('logo.webp', 'abs', G); css(logoG, { width: '900px', left: '90px', top: '300px' });
+const ctaG = el('div', 'cta', G, 'ลงทะเบียนได้แล้ว!'); css(ctaG, { top: '760px' });
+const bottleG = el('div', 'pill', G, '<i>💧</i>พกขวดน้ำมา รับสติกเกอร์พิเศษ'); css(bottleG, { top: '960px', fontSize: '38px' });
+const qrG = el('div', 'qrcard', G); img('qr-checkin.png', '', qrG); el('div', '', qrG, 'สแกนเพื่อ Check-in');
+css(qrG, { top: '1170px' });
+const courseG = el('div', 'small head', G, 'CA040 Special Topics Seminar and Workshop · Section 418L');
+css(courseG, { top: '1830px', fontSize: '30px', color: '#fff', fontWeight: 500, textShadow: '0 2px 6px rgba(0,0,0,.35)' });
+const sparksG = [spark(G, 110, 260, 90), spark(G, 920, 250, 70), spark(G, 960, 700, 80)];
+
+const ORDER = [A, B, C, D, E_, F, G];
+ORDER.forEach((s, i) => (s.style.zIndex = i));
+
+// ═════════ timeline ═════════
+const DURATION = 33;
+function sparkAnim(list, t, start) {
+  list.forEach((s, i) => {
+    const k = p(t, start + i * 0.15, 0.5);
+    const tw = 0.85 + 0.15 * Math.sin(t * 4 + i);
+    css(s, { opacity: clamp(k * 2), transform: `scale(${E.back(k) * tw}) rotate(${t * 40 + i * 30}deg)` });
+  });
+}
+function show(scene, t, a, b) { scene.style.display = t >= a && t < b ? 'block' : 'none'; }
+function circleWipe(scene, t, start, dur, x = 50, y = 50) {
+  const k = E.inOut(p(t, start, dur));
+  scene.style.clipPath = k >= 1 ? 'none' : `circle(${k * 120}% at ${x}% ${y}%)`;
+}
+function slideIn(scene, t, start, dur, axis = 'y') {
+  const k = E.inOut(p(t, start, dur));
+  scene.style.transform = axis === 'y' ? `translateY(${(1 - k) * 100}%)` : `translateX(${(1 - k) * 100}%)`;
+}
+
+function render(t) {
+  // ── A 0–4.8
+  show(A, t, 0, 4.8);
+  if (t < 4.8) {
+    worldA.update(t, { px: 0.61, zoom: lerp(1.12, 1.0, E.out(p(t, 0, 4.5))) });
+    const k = p(t, 0.35, 0.7);
+    css(logoA, { opacity: clamp(k * 3), transform: `scale(${k === 0 ? 0.001 : E.back(k)}) translateY(${Math.sin(t * 2) * 8}px)` });
+    rise(tagA, t, 1.25, 0.7);
+    pop(seminarA, t, 1.9, 0.5, 'translateX(-50%) rotate(-4deg)');
+    sparkAnim(sparksA, t, 0.8);
+  }
+  // ── B 4.2–8.9 (circle wipe in)
+  show(B, t, 4.2, 8.9);
+  if (t >= 4.2 && t < 8.9) {
+    circleWipe(B, t, 4.2, 0.6, 50, 45);
+    const k = p(t, 4.7, 0.7);
+    css(stickerB, { opacity: clamp(k * 3), transform: `scale(${k === 0 ? 0.001 : E.back(k)}) rotate(${-8 + Math.sin(t * 2.2) * 3}deg)` });
+    pop(titleB, t, 5.6, 0.55, 'translateX(-50%) rotate(-2deg)');
+    rise(subB, t, 6.2, 0.6);
+    sparkAnim(sparksB, t, 5.0);
+    css(turbB, { transform: `translateY(${(1 - E.out(p(t, 5, 1))) * 300}px)` });
+  }
+  // ── C 8.4–15.2 (slide up)
+  show(C, t, 8.4, 15.2);
+  if (t >= 8.4 && t < 15.2) {
+    slideIn(C, t, 8.4, 0.6, 'y');
+    starsC(t);
+    pop(tagC, t, 8.9, 0.5, 'translateX(-50%) rotate(-4deg)');
+    const k = E.out(p(t, 9.0, 0.8));
+    css(portrait, { opacity: k, transform: `translateX(${(1 - k) * 500}px) rotate(${lerp(12, -3, k) + Math.sin(t * 1.5) * 0.6}deg)` });
+    pop(nameC1, t, 9.8, 0.55, 'translateX(-50%) rotate(-2deg)');
+    rise(nameC2, t, 10.2, 0.6);
+    badges.forEach((b, i) => {
+      const kk = E.out(p(t, 10.9 + i * 0.45, 0.55));
+      css(b, { opacity: kk, transform: `translateX(${(1 - kk) * (i % 2 ? 300 : -300)}px)` });
+    });
+  }
+  // ── D 14.7–18.9 (slide from right)
+  show(D, t, 14.7, 18.9);
+  if (t >= 14.7 && t < 18.9) {
+    slideIn(D, t, 14.7, 0.6, 'x');
+    pop(tagD, t, 15.2, 0.5, 'translateX(-50%) rotate(-4deg)');
+    pop(titleD1, t, 15.4, 0.55, 'translateX(-50%) rotate(-2deg)');
+    pop(titleD2, t, 15.65, 0.55, 'translateX(-50%) rotate(-2deg)');
+    topics.forEach((e, i) => rise(e, t, 16.2 + i * 0.4, 0.55, 120));
+    sparkAnim(sparksD, t, 15.6);
+  }
+  // ── E 18.4–24.3 (circle wipe)
+  show(E_, t, 18.4, 24.3);
+  if (t >= 18.4 && t < 24.3) {
+    circleWipe(E_, t, 18.4, 0.6, 50, 60);
+    starsE(t);
+    const kk = E.out(p(t, 18.9, 0.7));
+    css(kv, { opacity: kk, transform: `translateY(${(1 - kk) * -200}px) scale(${lerp(1.2, 1, kk)})` });
+    cards.forEach((c, i) => {
+      const k = E.out(p(t, 19.6 + i * 0.12, 0.7));
+      const col = i % 3, row = Math.floor(i / 3);
+      const x = 95 + col * 310;
+      const y = 760 + row * 430;
+      const tilt = [-4, 2, -2, 3, -3, 4][i];
+      // ไฮไลต์ทีละใบ
+      const hl = Math.max(0, 1 - Math.abs((t - (21.2 + i * 0.3)) / 0.24));
+      css(c, {
+        left: x + 'px',
+        top: lerp(2000 + row * 200, y - hl * 50, k) + 'px',
+        transform: `rotate(${lerp(tilt * 4, tilt, k)}deg) scale(${1 + hl * 0.12})`,
+        filter: hl > 0 ? `drop-shadow(0 0 ${34 * hl}px rgba(244,217,139,${hl}))` : 'none',
+        zIndex: hl > 0.3 ? 20 : i,
+      });
+    });
+    rise(capE, t, 22.9, 0.6);
+  }
+  // ── F 23.8–28 (slide up)
+  show(F, t, 23.8, 28);
+  if (t >= 23.8 && t < 28) {
+    slideIn(F, t, 23.8, 0.55, 'y');
+    pop(tagF, t, 24.3, 0.5, 'translateX(-50%) rotate(-4deg)');
+    rise(dayF, t, 24.4, 0.5);
+    pop(bigF, t, 24.6, 0.6, 'translateX(-50%) rotate(-3deg)');
+    pop(monF, t, 25.0, 0.55, 'translateX(-50%) rotate(-2deg)');
+    pills.forEach((e, i) => rise(e, t, 25.5 + i * 0.3, 0.5, 80, 'translateX(-50%)'));
+    sparkAnim(sparksF, t, 24.8);
+  }
+  // ── G 27.5–30 (fade/zoom)
+  show(G, t, 27.5, 34);
+  if (t >= 27.5) {
+    const k = E.out(p(t, 27.5, 0.6));
+    css(G, { opacity: k });
+    worldG.update(t, { px: 0.76, zoom: lerp(1.15, 1.0, E.out(p(t, 27.5, 2.5))) });
+    pop(logoG, t, 27.8, 0.6);
+    const pulse = 1 + 0.04 * Math.max(0, Math.sin((t - 28.8) * 6));
+    const kc = p(t, 28.4, 0.55);
+    css(ctaG, { opacity: clamp(kc * 3), transform: `translateX(-50%) scale(${(kc === 0 ? 0.001 : E.back(kc)) * pulse})` });
+    rise(bottleG, t, 28.9, 0.5, 60, 'translateX(-50%)');
+    const kq = p(t, 29.3, 0.6);
+    css(qrG, { opacity: clamp(kq * 3), transform: `translateX(-50%) scale(${kq === 0 ? 0.001 : E.back(kq)}) rotate(${lerp(-8, 0, E.out(kq))}deg)` });
+    rise(courseG, t, 29.6, 0.5, 30);
+    sparkAnim(sparksG, t, 28.0);
+  }
+}
+
+window.DURATION = DURATION;
+window.render = render;
+window.ready = Promise.all([
+  document.fonts.ready,
+  ...[...document.images].map((i) => (i.complete ? 1 : new Promise((r) => { i.onload = r; i.onerror = r; }))),
+]).then(() => document.fonts.ready);
+
+// ดูตัวอย่างในเบราว์เซอร์ได้: เปิดไฟล์นี้แล้วจะเล่นวนเอง (?t=12 เพื่อหยุดที่วินาทีนั้น)
+const qt = new URLSearchParams(location.search).get('t');
+if (qt !== null) render(parseFloat(qt));
+else if (!navigator.webdriver) {
+  const t0 = performance.now();
+  const loop = () => { render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); };
+  loop();
+} else render(0);
+</script>
+</body>
+</html>

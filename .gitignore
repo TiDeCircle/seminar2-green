@@ -1,0 +1,7 @@
+node_modules
+dist
+.playwright-mcp
+
+# ผลลัพธ์ระหว่างทางของ promo (render ใหม่ได้ด้วย npm run render) เก็บไว้แค่วิดีโอตัวจริง
+promo/out/*
+!promo/out/green-in-action-promo.mp4
