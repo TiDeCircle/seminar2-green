@@ -7,6 +7,7 @@ import FloorPlan from './components/FloorPlan.jsx'
 import Register from './components/Register.jsx'
 import Footer from './components/Footer.jsx'
 import DevCredits from './components/DevCredits.jsx'
+import ScrollBar from './components/ScrollBar.jsx'
 import { useReveal } from './hooks.js'
 import { SHOW_FLOORPLAN } from './data.js'
 
@@ -26,6 +27,7 @@ export default function App() {
       </main>
       <Footer />
       <DevCredits />
+      <ScrollBar />
     </>
   )
 }
