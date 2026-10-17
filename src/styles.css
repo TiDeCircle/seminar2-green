@@ -1325,6 +1325,107 @@ a {
   border: 0;
 }
 
+/* มือถือใช้เลย์เอาต์แนวตั้งแยก (ดู .map__m ใน @media ด้านล่าง) */
+.map__m {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .map {
+    /* ไล่สีให้ตรงกับขอบภาพที่ตัดมา ชิ้นส่วนจะได้กลืนกับพื้น */
+    background: linear-gradient(
+      180deg,
+      rgb(3 111 186) 0,
+      rgb(11 120 188) 100px,
+      rgb(26 129 190) 240px,
+      rgb(100 182 206) 790px,
+      rgb(128 198 213) 100%
+    );
+  }
+
+  .map__art > :not(.map__m) {
+    display: none;
+  }
+
+  .map__m {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 78px;
+  }
+
+  .map__m-title {
+    width: min(89%, 382px);
+    height: auto;
+  }
+
+  .map__m-route {
+    width: min(82%, 350px);
+    height: auto;
+    margin-top: 6px;
+  }
+
+  .map__m-gmaps {
+    margin-top: 18px;
+    padding: 6px 24px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #3fbf6a, #1f9a4e);
+    box-shadow: 0 4px 12px -4px rgba(0, 40, 30, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    color: var(--white);
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .map__m-embed {
+    width: min(70%, 320px);
+    aspect-ratio: 606 / 428;
+    margin-top: 14px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #e8eef0;
+    box-shadow: 0 10px 30px -12px rgba(0, 30, 60, 0.5);
+  }
+
+  .map__m-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .map__m-tower {
+    position: relative;
+    width: min(76%, 340px);
+    margin-top: 56px;
+  }
+
+  .map__m-tower .map__tower img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ตำแหน่งป้ายเทียบกับภาพตึก (ค่าเดียวกับเลย์เอาต์จอใหญ่) */
+  .map__m-label {
+    position: absolute;
+  }
+
+  .map__m-label--tower {
+    left: 22%;
+    top: 6.9%;
+    width: 39.5%;
+  }
+
+  .map__m-label--room {
+    left: 34.6%;
+    top: 57.9%;
+    width: 49.8%;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1942,6 +2043,73 @@ a {
 
   .cards {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .footer__body {
+    padding: 8px 0 22px;
+  }
+
+  .footer__grid {
+    gap: 0;
+  }
+
+  .footer__logo {
+    width: min(56%, 220px);
+  }
+
+  .footer__info {
+    margin-top: 18px;
+  }
+
+  .footer__course {
+    max-width: 290px;
+    margin: 0 auto 8px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .footer__building {
+    display: block;
+  }
+
+  .footer__meta {
+    font-size: 13px;
+  }
+
+  .footer__nav {
+    order: 1;
+    grid-auto-flow: row;
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .footer__nav a {
+    font-size: 17px;
+  }
+
+  .footer__cta {
+    order: 2;
+    flex-direction: row;
+    gap: 14px;
+    margin-top: 30px;
+  }
+
+  .footer__btn {
+    min-width: 100px;
+    padding: 9px 22px;
+  }
+
+  .footer__social {
+    gap: 12px;
+  }
+
+  .footer__social a {
+    width: 34px;
+    height: 34px;
+  }
+
+  .footer__social svg {
+    width: 20px;
+    height: 20px;
   }
 }
 

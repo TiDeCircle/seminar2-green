@@ -29,6 +29,36 @@ const WINDOWS = [
   { x: 468, y: 863, w: 41, h: 84, delay: 2.6 },
 ]
 
+function Tower() {
+  return (
+    <div className="map__tower" aria-hidden="true">
+      <img src="./images/venue-tower.webp" width={TOWER.w} height={TOWER.h} alt="" loading="lazy" />
+      {WINDOWS.map((w, i) => (
+        <span
+          key={i}
+          className="map__window"
+          style={{ ...inTower(w.x, w.y, w.w, w.h), animationDelay: `${w.delay}s` }}
+        />
+      ))}
+      {/* ลิฟต์วิ่งขึ้นเสาข้างตึกไปจอดที่ชั้นห้องจัดงาน */}
+      <span className="map__lift" style={inTower(67, 0, 19, TOWER.h)}>
+        <i />
+      </span>
+    </div>
+  )
+}
+
+function RoomLabel() {
+  const img = <img src="./images/venue-label-room.webp" width="331" height="114" alt="" loading="lazy" />
+  return SHOW_FLOORPLAN ? (
+    <a className="map__label map__label--room" href="#floorplan" aria-label={`${EVENT.room} — ดูผังห้อง`}>
+      {img}
+    </a>
+  ) : (
+    <img className="map__label map__label--room" src="./images/venue-label-room.webp" width="331" height="114" alt="" loading="lazy" />
+  )
+}
+
 export default function MapSection() {
   const q = encodeURIComponent(MAP.query)
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${q}`
@@ -39,6 +69,9 @@ export default function MapSection() {
   // เล่นแอนิเมชันตึกโผล่ตอนเลื่อนมาถึง
   useEffect(() => {
     const el = artRef.current
+    // มือถือเรียงเป็นแนวตั้ง ตึกอยู่ล่างสุด เลยรอให้เลื่อนถึงตัวตึกก่อน
+    const mobileTower = el.querySelector('.map__m-tower')
+    const target = mobileTower.offsetParent ? mobileTower : el
     if (!('IntersectionObserver' in window)) {
       setVisible(true)
       return
@@ -52,7 +85,7 @@ export default function MapSection() {
       },
       { threshold: 0.3 },
     )
-    io.observe(el)
+    io.observe(target)
     return () => io.disconnect()
   }, [])
 
@@ -108,20 +141,7 @@ export default function MapSection() {
         </span>
 
         <div className="map__layer map__layer--tower" style={box(TOWER.x, TOWER.y, TOWER.w)} aria-hidden="true">
-          <div className="map__tower">
-            <img src="./images/venue-tower.webp" width={TOWER.w} height={TOWER.h} alt="" loading="lazy" />
-            {WINDOWS.map((w, i) => (
-              <span
-                key={i}
-                className="map__window"
-                style={{ ...inTower(w.x, w.y, w.w, w.h), animationDelay: `${w.delay}s` }}
-              />
-            ))}
-            {/* ลิฟต์วิ่งขึ้นเสาข้างตึกไปจอดที่ชั้นห้องจัดงาน */}
-            <span className="map__lift" style={inTower(67, 0, 19, TOWER.h)}>
-              <i />
-            </span>
-          </div>
+          <Tower />
         </div>
 
         <div className="map__layer map__layer--label" style={box(880, 124, 262)} aria-hidden="true">
@@ -129,13 +149,7 @@ export default function MapSection() {
         </div>
 
         <div className="map__layer map__layer--label" style={box(964, 646, 331)}>
-          {SHOW_FLOORPLAN ? (
-            <a className="map__label map__label--room" href="#floorplan" aria-label={`${EVENT.room} — ดูผังห้อง`}>
-              <img src="./images/venue-label-room.webp" width="331" height="114" alt="" loading="lazy" />
-            </a>
-          ) : (
-            <img className="map__label map__label--room" src="./images/venue-label-room.webp" width="331" height="114" alt="" loading="lazy" />
-          )}
+          <RoomLabel />
         </div>
 
         {/* จุดกดทับปุ่ม GOOGLE MAPS ในภาพ */}
@@ -156,6 +170,47 @@ export default function MapSection() {
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
+        </div>
+
+        {/* มือถือ: เรียงชิ้นส่วนจากภาพเดียวกันเป็นแนวตั้ง */}
+        <div className="map__m">
+          <img
+            className="map__m-title"
+            src="./images/venue-m-title.webp"
+            width="700"
+            height="300"
+            alt=""
+            loading="lazy"
+          />
+          <img
+            className="map__m-route"
+            src="./images/venue-m-route.webp"
+            width="490"
+            height="795"
+            alt="แผนที่วิธีการเดินทางมาตึก A5 Tourism Tower"
+            loading="lazy"
+          />
+          <a className="map__m-gmaps" href={directions} target="_blank" rel="noreferrer">
+            GOOGLE MAPS
+          </a>
+          <div className="map__m-embed">
+            <iframe
+              title="แผนที่ อาคาร Tourism Tower (A5) มหาวิทยาลัยกรุงเทพ"
+              src={embed}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <div className="map__m-tower">
+            <Tower />
+            <div className="map__m-label map__m-label--tower" aria-hidden="true">
+              <img className="map__label map__label--tower" src="./images/venue-label-tower.webp" width="262" height="106" alt="" loading="lazy" />
+            </div>
+            <div className="map__m-label map__m-label--room">
+              <RoomLabel />
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ export default function Footer() {
             <p className="footer__meta">
               {EVENT.dateTh} · {EVENT.time}
               <br />
-              {EVENT.room} {EVENT.building}
+              {EVENT.room} <span className="footer__building">{EVENT.building}</span>
             </p>
           </div>
           <div className="footer__cta">
