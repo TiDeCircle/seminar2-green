@@ -103,7 +103,8 @@ export default function Hero() {
           <div className="countdown" role="timer" aria-label="นับถอยหลังสู่วันงาน">
             {units.map((u) => (
               <div className="countdown__box" key={u.label}>
-                <span className="countdown__num">{pad(u.value)}</span>
+                {/* ตัวเลขใน HTML ที่ prerender ไว้เป็นเวลาตอน build จะต่างจากเวลาจริงเสมอ */}
+                <span className="countdown__num" suppressHydrationWarning>{pad(u.value)}</span>
                 <span className="countdown__label">{u.label}</span>
               </div>
             ))}
