@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { OBJECTIVES, TOPICS, AUDIENCE, SPEAKER, LINKS } from '../data.js'
 import Title from './Title.jsx'
 
 export default function About() {
+  const [more, setMore] = useState(false)
+
   return (
     <section className="section about" id="about">
       <div className="container">
@@ -53,11 +56,20 @@ export default function About() {
             />
             <span className="speaker__badge">Guest Speaker</span>
           </div>
-          <div className="speaker__body">
+          <div className={`speaker__body ${more ? 'is-open' : ''}`}>
             <p className="eyebrow eyebrow--gold">{SPEAKER.tagline}</p>
             <h3 id="speaker-name" className="speaker__name">{SPEAKER.name}</h3>
             <p className="speaker__en">{SPEAKER.nameEn}</p>
-            <p>{SPEAKER.bio}</p>
+            <p className="speaker__bio">{SPEAKER.bio}</p>
+            {/* มือถือ: ย่อประวัติไว้ก่อน กดอ่านต่อถึงเห็นผลงานทั้งหมด */}
+            <button
+              type="button"
+              className="speaker__more"
+              aria-expanded={more}
+              onClick={() => setMore((m) => !m)}
+            >
+              {more ? 'ย่อลง' : 'อ่านต่อ'}
+            </button>
             <ul className="speaker__list">
               {SPEAKER.achievements.map((a) => (
                 <li key={a}>{a}</li>

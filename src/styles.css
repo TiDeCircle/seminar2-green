@@ -879,6 +879,10 @@ a {
   color: var(--white);
 }
 
+.speaker__more {
+  display: none;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: 1fr 1.2fr 1fr;
@@ -1325,6 +1329,21 @@ a {
   border: 0;
 }
 
+/* มือถือ: ไล่สีรอยต่อระหว่างส่วน ไม่ให้สีพื้นหลังกระโดด
+   กำหนดการ (น้ำเงินเข้ม) → สถานที่ (ฟ้า) → ผังงาน (ฟ้าอ่อน) → ลงทะเบียน (น้ำเงิน) */
+@media (max-width: 600px) {
+  .section.floorplan {
+    background: linear-gradient(
+      180deg,
+      rgb(128 198 213) 0,
+      var(--sky-100) 220px,
+      var(--sky-50) 420px,
+      var(--sky-50) calc(100% - 260px),
+      var(--card-blue) 100%
+    );
+  }
+}
+
 /* มือถือใช้เลย์เอาต์แนวตั้งแยก (ดู .map__m ใน @media ด้านล่าง) */
 .map__m {
   display: none;
@@ -1335,7 +1354,8 @@ a {
     /* ไล่สีให้ตรงกับขอบภาพที่ตัดมา ชิ้นส่วนจะได้กลืนกับพื้น */
     background: linear-gradient(
       180deg,
-      rgb(3 111 186) 0,
+      var(--navy-900) 0,
+      rgb(3 111 186) 70px,
       rgb(11 120 188) 100px,
       rgb(26 129 190) 240px,
       rgb(100 182 206) 790px,
@@ -1345,6 +1365,16 @@ a {
 
   .map__art > :not(.map__m) {
     display: none;
+  }
+
+  /* ฐานตึกค่อย ๆ จางเข้ากับพื้นของส่วนผังงาน แทนที่จะถูกตัดเป็นเส้นตรง */
+  .map::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 140px;
+    background: linear-gradient(180deg, rgb(128 198 213 / 0), rgb(128 198 213) 92%);
+    pointer-events: none;
   }
 
   .map__m {
@@ -2027,22 +2057,131 @@ a {
 
   .timeline__item {
     grid-template-columns: 1fr;
-    gap: 6px;
-    padding-left: 30px;
+    gap: 4px;
+    padding: 7px 0 7px 30px;
   }
 
   .timeline__item::before {
     left: 0;
-    top: 22px;
+    top: 13px;
   }
 
   .timeline__time {
     text-align: left;
     padding-top: 0;
+    font-size: 16px;
+  }
+
+  .timeline__body {
+    padding: 10px 16px;
+  }
+
+  .timeline__body h3 {
+    font-size: 17px;
+  }
+
+  .timeline__body p {
+    font-size: 14px;
+  }
+
+  /* หน้าแรกไม่ต้องเต็มจอ ให้ส่วน About โผล่ขึ้นมาเร็วขึ้น */
+  .hero {
+    min-height: 0;
+    padding-bottom: 96px;
+  }
+
+  .section.about {
+    padding-top: 48px;
   }
 
   .cards {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* About: การ์ดเป้าหมายกับรูปเปลี่ยนเป็นแถวปัดซ้าย–ขวา ลดความยาวหน้า */
+  .objectives,
+  .gallery {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 12px;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter) 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .objectives::-webkit-scrollbar,
+  .gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .objectives > *,
+  .gallery > * {
+    scroll-snap-align: start;
+  }
+
+  .objectives {
+    margin-top: 20px;
+    margin-bottom: 48px;
+  }
+
+  .gallery {
+    grid-auto-columns: 72%;
+    margin-top: 4px;
+    margin-bottom: 48px;
+  }
+
+  .gallery img,
+  .gallery img:first-child {
+    grid-column: auto;
+    height: 240px;
+  }
+
+  .about__sticker {
+    max-width: 180px;
+  }
+
+  .speaker__photo {
+    aspect-ratio: 4 / 3.6;
+  }
+
+  .speaker__body {
+    padding: 28px 24px 32px;
+  }
+
+  .speaker__name {
+    font-size: 25px;
+  }
+
+  .speaker__body:not(.is-open) .speaker__bio {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  .speaker__body:not(.is-open) .speaker__list {
+    display: none;
+  }
+
+  .speaker__more {
+    display: inline-block;
+    margin: -6px 0 20px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--gold);
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
   }
   .footer__body {
     padding: 8px 0 22px;
