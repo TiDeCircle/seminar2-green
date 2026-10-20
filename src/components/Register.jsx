@@ -4,32 +4,69 @@ import { Stars } from './Schedule.jsx'
 import Title from './Title.jsx'
 
 const STORAGE_KEY = 'gia-pledge'
+const VARIANT_KEY = 'gia-pledge-variant'
+// ชุดข้อมูลที่ผู้ใช้คนนี้เคยเปิดไปแล้วของไพ่แต่ละใบ { [id]: [index, ...] }
+const SEEN_KEY = 'gia-pledge-seen'
 
-function readPledge() {
+function load(key, fallback) {
   try {
-    return localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(key)
+    return raw === null ? fallback : JSON.parse(raw)
   } catch {
-    return null
+    return fallback
   }
+}
+
+function save(key, value) {
+  try {
+    value === null ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    /* ไม่มี storage ก็ใช้งานได้ปกติ */
+  }
+}
+
+// สุ่มชุดข้อมูลที่ยังไม่เคยเปิด พอเปิดครบทุกชุดแล้วจึงเริ่มรอบใหม่ (และไม่ให้ซ้ำกับชุดล่าสุด)
+function drawVariant(p) {
+  const seen = load(SEEN_KEY, {})
+  let used = Array.isArray(seen[p.id]) ? seen[p.id] : []
+  if (used.length >= p.variants.length) used = used.slice(-1)
+  const pool = p.variants.map((_, i) => i).filter((i) => !used.includes(i))
+  const pick = pool[Math.floor(Math.random() * pool.length)]
+  save(SEEN_KEY, { ...seen, [p.id]: [...used, pick] })
+  return pick
 }
 
 export default function Register() {
   const [picked, setPicked] = useState(null)
+  // ชุดข้อมูลที่โชว์อยู่หลังไพ่แต่ละใบ เก็บไว้แม้คว่ำไพ่ เพื่อไม่ให้ข้อความเปลี่ยนระหว่างพลิก
+  const [shown, setShown] = useState({})
 
   useEffect(() => {
-    setPicked(readPledge())
+    const id = load(STORAGE_KEY, null)
+    const p = PLEDGES.find((x) => x.id === id)
+    if (!p) return
+    const v = load(VARIANT_KEY, 0)
+    setPicked(id)
+    setShown({ [id]: p.variants[v] ? v : 0 })
   }, [])
 
-  const choose = (id) => {
-    const next = picked === id ? null : id
-    setPicked(next)
-    try {
-      next ? localStorage.setItem(STORAGE_KEY, next) : localStorage.removeItem(STORAGE_KEY)
-    } catch {
-      /* ไม่มี storage ก็ใช้งานได้ปกติ */
+  // ไพ่ที่เลือกจะเปิดค้างไว้ กดใบอื่นเพื่อเปลี่ยน หรือกดใบเดิมซ้ำเพื่อคว่ำกลับเป็นค่าเริ่มต้น
+  // เปิดไพ่แต่ละครั้งจะสุ่มชุดข้อมูลใหม่
+  const choose = (p) => {
+    if (picked === p.id) {
+      setPicked(null)
+      save(STORAGE_KEY, null)
+      save(VARIANT_KEY, null)
+      return
     }
+    const v = drawVariant(p)
+    setPicked(p.id)
+    setShown((prev) => ({ ...prev, [p.id]: v }))
+    save(STORAGE_KEY, p.id)
+    save(VARIANT_KEY, v)
   }
 
+  const variantOf = (p) => p.variants[shown[p.id] ?? 0]
   const pledge = PLEDGES.find((p) => p.id === picked)
   const pending = (url) => !url || url === '#'
 
@@ -44,21 +81,37 @@ export default function Register() {
             loading="lazy"
           />
         </h2>
-        <p className="register__hint reveal">เลือก 1 การ์ดที่คุณอยากเริ่มทำ แล้วนำไปเขียนบน Green Pledge Board ในวันงาน</p>
+        <p className="register__hint reveal">แตะเพื่อเปิดไพ่ 1 ใบที่คุณอยากเริ่มทำ แล้วนำไปเขียนบน Green Pledge Board ในวันงาน</p>
 
         <div className="cards" role="radiogroup" aria-label="เลือกพฤติกรรมที่อยากเริ่มเปลี่ยน">
           {PLEDGES.map((p, i) => (
-            <button
-              key={p.id}
-              type="button"
-              role="radio"
-              aria-checked={picked === p.id}
-              className={`card reveal ${picked === p.id ? 'is-picked' : ''} ${picked && picked !== p.id ? 'is-faded' : ''}`}
-              style={{ '--d': `${i * 70}ms` }}
-              onClick={() => choose(p.id)}
-            >
-              <img src={`./images/${p.img}.webp`} alt={p.label} loading="lazy" width="600" height="924" />
-            </button>
+            // reveal อยู่ที่ตัวห่อ เพราะ className ของปุ่มเปลี่ยนตอนเลือก แล้ว React จะลบ is-visible ทิ้งจนไพ่หายไป
+            <div className="card-slot reveal" key={p.id} style={{ '--d': `${i * 70}ms` }}>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={picked === p.id}
+                className={`card ${picked === p.id ? 'is-picked' : ''} ${picked && picked !== p.id ? 'is-faded' : ''}`}
+                onClick={() => choose(p)}
+              >
+                <span className="card__inner">
+                  <span className="card__face card__face--front">
+                    <img src={`./images/${p.img}.webp`} alt={p.label} loading="lazy" width="600" height="924" />
+                  </span>
+                  <span className="card__face card__face--back" aria-hidden={picked !== p.id}>
+                    <span className="card__star">✦</span>
+                    <strong className="card__title">{p.label}</strong>
+                    <span className="card__case">{variantOf(p).case}</span>
+                    <span className="card__detail">{variantOf(p).detail}</span>
+                    <span className="card__tips">
+                      {variantOf(p).tips.map((t) => (
+                        <span key={t}>{t}</span>
+                      ))}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </div>
           ))}
         </div>
 
@@ -66,7 +119,7 @@ export default function Register() {
           {pledge && (
             <>
               <p className="pledge__label">My Green Pledge ✦</p>
-              <p className="pledge__text">“ฉันจะ{pledge.pledge}”</p>
+              <p className="pledge__text" key={`${pledge.id}-${shown[pledge.id]}`}>“ฉันจะ{variantOf(pledge).pledge}”</p>
             </>
           )}
         </div>

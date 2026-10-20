@@ -6,19 +6,105 @@ import { useEffect, useRef, useState } from 'react'
 const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
 const TAPS = 5
 
-// ลิงก์บนการ์ด (พิกเซลของภาพ dev-credits.webp 1320×600)
-const IMG_W = 1320
-const IMG_H = 600
+// ข้อมูลผู้จัดทำ — fb คือชื่อที่โชว์ ถ้ามี fbUrl จะลิงก์ไปโปรไฟล์ตรง ๆ ไม่งั้นจะไปหน้าค้นหาชื่อใน Facebook
 const fb = (name) => `https://www.facebook.com/search/top?q=${encodeURIComponent(name)}`
-const LINKS = [
-  { label: 'Instagram ไทด์', href: 'https://www.instagram.com/tidenattapop/', x: 118, y: 385, w: 150 },
-  { label: 'Facebook ไทด์', href: fb('Tide Nattapop'), x: 118, y: 419, w: 156 },
-  { label: 'Instagram ไตเติ้ล', href: 'https://www.instagram.com/titlxz_/', x: 498, y: 385, w: 92 },
-  { label: 'Facebook ไตเติ้ล', href: fb('Napat Taseeta'), x: 498, y: 419, w: 156 },
-  { label: 'Instagram สตาร์ท', href: 'https://www.instagram.com/sa_tart_quarterback_001/', x: 878, y: 385, w: 248 },
-  { label: 'Facebook สตาร์ท', href: fb('Start Start'), x: 878, y: 419, w: 122 },
+const PEOPLE = [
+  {
+    name: 'ไทด์',
+    role: 'Developer',
+    photo: 'dev-photo-tide',
+    ig: 'tidenattapop',
+    fb: 'Tide Nattapop',
+  },
+  {
+    name: 'ไตเติ้ล',
+    role: 'Designer',
+    photo: 'dev-photo-title',
+    ig: 'titlxz_',
+    fb: 'Napat Taseeta',
+    fbUrl: 'https://www.facebook.com/Nptsx',
+  },
+  {
+    name: 'สตาร์ท',
+    role: 'Project Director',
+    photo: 'dev-photo-start',
+    ig: 'sa_tart_quarterback_001',
+    fb: 'Start Start',
+  },
 ]
-const ROW_H = 24
+const igUrl = (handle) => `https://www.instagram.com/${handle}/`
+
+function IgIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <defs>
+        <radialGradient id="credits-ig" cx="30%" cy="107%" r="150%">
+          <stop offset="0" stopColor="#fdf497" />
+          <stop offset="0.1" stopColor="#fdf497" />
+          <stop offset="0.5" stopColor="#fd5949" />
+          <stop offset="0.68" stopColor="#d6249f" />
+          <stop offset="1" stopColor="#285AEB" />
+        </radialGradient>
+      </defs>
+      <circle cx="12" cy="12" r="12" fill="url(#credits-ig)" />
+      <rect x="6.5" y="6.5" width="11" height="11" rx="3.4" fill="none" stroke="#fff" strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="2.6" fill="none" stroke="#fff" strokeWidth="1.6" />
+      <circle cx="15.3" cy="8.7" r="0.85" fill="#fff" />
+    </svg>
+  )
+}
+
+function FbIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="12" fill="#1877F2" />
+      <path
+        d="M13.3 19.5v-6h2l.3-2.4h-2.3V9.6c0-.7.2-1.2 1.2-1.2h1.2V6.3c-.2 0-1-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.8h-2v2.4h2v6z"
+        fill="#fff"
+      />
+    </svg>
+  )
+}
+
+function CreditsContent({ onClose, closeRef }) {
+  return (
+    <div className="mcredits">
+      <h2 className="mcredits__title">
+        WEBSITE
+        <br />
+        DEVELOPER
+      </h2>
+      {PEOPLE.map((p, i) => (
+        <article className="mcredits__card" key={p.name} style={{ '--d': `${120 + i * 90}ms` }}>
+          <img className="mcredits__photo" src={`./images/${p.photo}.webp`} alt={p.name} width="97" height="97" />
+          <div className="mcredits__info">
+            <h3 className="mcredits__name">{p.name}</h3>
+            <p className="mcredits__major">
+              <small>Communication and New Media</small>
+              Digital Advertising
+            </p>
+            <p className="mcredits__role">{p.role}</p>
+          </div>
+          <ul className="mcredits__links">
+            <li>
+              <a href={igUrl(p.ig)} target="_blank" rel="noreferrer" aria-label={`Instagram ${p.name}`}>
+                <IgIcon />/{p.ig}
+              </a>
+            </li>
+            <li>
+              <a href={p.fbUrl ?? fb(p.fb)} target="_blank" rel="noreferrer" aria-label={`Facebook ${p.name}`}>
+                <FbIcon />/{p.fb}
+              </a>
+            </li>
+          </ul>
+        </article>
+      ))}
+      <button ref={closeRef} className="mcredits__close" type="button" onClick={onClose}>
+        Close
+      </button>
+    </div>
+  )
+}
 
 export default function DevCredits() {
   const [open, setOpen] = useState(false)
@@ -63,7 +149,8 @@ export default function DevCredits() {
 
   useEffect(() => {
     if (!open) return
-    closeRef.current?.focus()
+    // preventScroll: ปุ่ม Close อยู่ล่างสุด ถ้าเลื่อนไปหาปุ่ม หัวข้อจะหลุดขอบบนในจอเตี้ย
+    closeRef.current?.focus({ preventScroll: true })
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
@@ -73,35 +160,16 @@ export default function DevCredits() {
 
   if (!open) return null
 
+  // ทุกขนาดจอ: เบลอหน้าเว็บด้านหลัง แล้ววางการ์ดกระจก (มือถือเรียงแนวตั้ง จอใหญ่เรียง 3 ใบในแถวเดียว)
   return (
-    <div className="credits" role="dialog" aria-modal="true" aria-label="Website Developer" onClick={() => setOpen(false)}>
-      <div className="credits__card" onClick={(e) => e.stopPropagation()}>
-        <img
-          src="./images/dev-credits.webp"
-          width={IMG_W}
-          height={IMG_H}
-          alt="Website Developer: ไทด์ (Developer), ไตเติ้ล (Designer), สตาร์ท (Project Director) — Communication and New Media, Digital Advertising"
-        />
-        {LINKS.map((l) => (
-          <a
-            key={l.label}
-            className="credits__link"
-            href={l.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={l.label}
-            style={{
-              left: `${(l.x / IMG_W) * 100}%`,
-              top: `${(l.y / IMG_H) * 100}%`,
-              width: `${(l.w / IMG_W) * 100}%`,
-              height: `${(ROW_H / IMG_H) * 100}%`,
-            }}
-          />
-        ))}
-        <button ref={closeRef} className="credits__close" type="button" onClick={() => setOpen(false)} aria-label="ปิด">
-          ×
-        </button>
-      </div>
+    <div
+      className="credits"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Website Developer"
+      onClick={(e) => e.target === e.currentTarget && setOpen(false)}
+    >
+      <CreditsContent onClose={() => setOpen(false)} closeRef={closeRef} />
     </div>
   )
 }
