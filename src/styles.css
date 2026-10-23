@@ -937,12 +937,41 @@ a {
   height: 100%;
 }
 
+.guest__hill {
+  position: absolute;
+  height: auto;
+  max-width: none;
+}
+
+.guest__canvas img {
+  pointer-events: none;
+}
+
 .guest__layer {
   position: absolute;
   height: auto;
+  max-width: none;
   transition:
     opacity 0.8s ease var(--d),
-    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d);
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d),
+    scale 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    rotate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.35s ease;
+}
+
+/* stamp: ชี้แล้วยกขึ้นมาข้างหน้า */
+.guest__canvas .guest__layer--stamp {
+  pointer-events: auto;
+  cursor: zoom-in;
+}
+
+.guest__layer--stamp:hover {
+  z-index: 5;
+  scale: 1.08;
+  translate: 0 -3%;
+  rotate: -2deg;
+  filter: drop-shadow(0 18px 24px rgba(7, 26, 61, 0.35));
 }
 
 .guest:not(.is-visible) .guest__layer {
@@ -969,19 +998,8 @@ a {
   transform: translateY(18%);
 }
 
-/* ลอยเบา ๆ หลังโผล่มาแล้ว */
-.guest.is-visible .guest__layer--stamp {
-  animation: guest-float 6s ease-in-out calc(var(--d) + 1s) infinite alternate;
-}
-
 .guest.is-visible .guest__layer--cloud {
   animation: guest-drift 14s ease-in-out 1s infinite alternate;
-}
-
-@keyframes guest-float {
-  to {
-    transform: translateY(-3%) rotate(1.5deg);
-  }
 }
 
 @keyframes guest-drift {
