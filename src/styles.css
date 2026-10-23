@@ -818,7 +818,8 @@ a {
 /* Speaker */
 .speaker {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: 1fr;
+  margin-bottom: clamp(64px, 9vw, 100px);
   background: var(--navy);
   color: rgba(255, 255, 255, 0.88);
   border-radius: 32px;
@@ -834,34 +835,6 @@ a {
   border: 1.5px solid rgba(244, 217, 139, 0.5);
   border-radius: 24px;
   pointer-events: none;
-}
-
-.speaker__photo {
-  position: relative;
-  min-height: 420px;
-}
-
-.speaker__photo img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-}
-
-.speaker__badge {
-  position: absolute;
-  left: 28px;
-  bottom: 28px;
-  background: var(--gold);
-  color: var(--navy-900);
-  font-family: var(--font-head);
-  font-weight: 600;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 14px;
-  transform: rotate(-4deg);
 }
 
 .speaker__body {
@@ -941,19 +914,80 @@ a {
   display: none;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 16px;
-  margin: 16px 0 clamp(64px, 9vw, 100px);
+/* Guest scene: ฉากวิทยากรเต็มความกว้างจอ ซ้อน layer ตามไฟล์ Post_3 */
+.guest {
+  width: 100vw;
+  margin: 0 calc(50% - 50vw) clamp(28px, 4vw, 48px);
+  overflow: hidden;
 }
 
-.gallery img {
+.guest.reveal {
+  transform: none;
+}
+
+.guest__canvas {
+  position: relative;
+  aspect-ratio: 12180 / 5400;
+}
+
+.guest__bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: clamp(200px, 22vw, 300px);
-  object-fit: cover;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  height: 100%;
+}
+
+.guest__layer {
+  position: absolute;
+  height: auto;
+  transition:
+    opacity 0.8s ease var(--d),
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d);
+}
+
+.guest:not(.is-visible) .guest__layer {
+  opacity: 0;
+}
+
+.guest:not(.is-visible) .guest__layer--cloud {
+  transform: translateX(-6%);
+}
+
+.guest:not(.is-visible) .guest__layer--rise {
+  transform: translateY(8%);
+}
+
+.guest:not(.is-visible) .guest__layer--stamp {
+  transform: scale(0.7) rotate(var(--rot));
+}
+
+.guest:not(.is-visible) .guest__layer--pop {
+  transform: scale(0.85);
+}
+
+.guest:not(.is-visible) .guest__layer--bush {
+  transform: translateY(18%);
+}
+
+/* ลอยเบา ๆ หลังโผล่มาแล้ว */
+.guest.is-visible .guest__layer--stamp {
+  animation: guest-float 6s ease-in-out calc(var(--d) + 1s) infinite alternate;
+}
+
+.guest.is-visible .guest__layer--cloud {
+  animation: guest-drift 14s ease-in-out 1s infinite alternate;
+}
+
+@keyframes guest-float {
+  to {
+    transform: translateY(-3%) rotate(1.5deg);
+  }
+}
+
+@keyframes guest-drift {
+  to {
+    transform: translateX(4%);
+  }
 }
 
 /* Topics */
@@ -2230,24 +2264,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .speaker__photo {
-    min-height: 0;
-    aspect-ratio: 4 / 4.2;
-  }
-
-  .gallery {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .gallery img {
-    height: 180px;
-  }
-
-  .gallery img:first-child {
-    grid-column: 1 / -1;
-    height: 220px;
-  }
-
   .register__actions .btn {
     width: 100%;
     min-width: 0;
@@ -2327,8 +2343,7 @@ a {
   }
 
   /* About: การ์ดเป้าหมายกับรูปเปลี่ยนเป็นแถวปัดซ้าย–ขวา ลดความยาวหน้า */
-  .objectives,
-  .gallery {
+  .objectives {
     display: grid;
     grid-template-columns: none;
     grid-auto-flow: column;
@@ -2343,13 +2358,11 @@ a {
     scrollbar-width: none;
   }
 
-  .objectives::-webkit-scrollbar,
-  .gallery::-webkit-scrollbar {
+  .objectives::-webkit-scrollbar {
     display: none;
   }
 
-  .objectives > *,
-  .gallery > * {
+  .objectives > * {
     scroll-snap-align: start;
   }
 
@@ -2358,24 +2371,14 @@ a {
     margin-bottom: 48px;
   }
 
-  .gallery {
-    grid-auto-columns: 72%;
-    margin-top: 4px;
-    margin-bottom: 48px;
-  }
-
-  .gallery img,
-  .gallery img:first-child {
-    grid-column: auto;
-    height: 240px;
+  /* มือถือ: ขยายผืนผ้าใบแล้วตัดเอาช่วงกลาง (กรอบ ชื่อ และตัววิทยากร) */
+  .guest__canvas {
+    width: 250%;
+    left: -75%;
   }
 
   .about__sticker {
     max-width: 180px;
-  }
-
-  .speaker__photo {
-    aspect-ratio: 4 / 3.6;
   }
 
   .speaker__body {

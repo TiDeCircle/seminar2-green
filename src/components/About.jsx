@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { OBJECTIVES, TOPICS, AUDIENCE, SPEAKER, LINKS } from '../data.js'
 import Title from './Title.jsx'
+import GuestScene from './GuestScene.jsx'
 
 export default function About() {
   const [more, setMore] = useState(false)
@@ -45,17 +46,9 @@ export default function About() {
           ))}
         </div>
 
+        <GuestScene />
+
         <article className="speaker reveal" aria-labelledby="speaker-name">
-          <div className="speaker__photo">
-            <img
-              src="./images/speaker-portrait.webp"
-              alt="คุณใบตอง จรีรัตน์ เพชรโสม ในชุดประกวด Miss Earth Thailand 2021"
-              width="836"
-              height="1255"
-              loading="lazy"
-            />
-            <span className="speaker__badge">Guest Speaker</span>
-          </div>
           <div className={`speaker__body ${more ? 'is-open' : ''}`}>
             <p className="eyebrow eyebrow--gold">{SPEAKER.tagline}</p>
             <h3 id="speaker-name" className="speaker__name">{SPEAKER.name}</h3>
@@ -89,12 +82,6 @@ export default function About() {
             <blockquote className="speaker__quote">“{SPEAKER.quote}”</blockquote>
           </div>
         </article>
-
-        <div className="gallery">
-          <img src="./images/speaker-mangrove.webp" alt="คุณใบตองลงพื้นที่ปลูกป่าชายเลน" loading="lazy" className="reveal" />
-          <img src="./images/speaker-stage.webp" alt="คุณใบตองขึ้นพูดบนเวที" loading="lazy" className="reveal" />
-          <img src="./images/speaker-rooftop.webp" alt="คุณใบตองในสวนบนดาดฟ้า" loading="lazy" className="reveal" />
-        </div>
 
         <div className="topics">
           <div className="topics__head reveal">
