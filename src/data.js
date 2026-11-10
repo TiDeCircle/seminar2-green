@@ -21,6 +21,18 @@ export const COLLAB = {
     { word: 'O-SHOO (โอะชู่)', meaning: 'สบายดี' },
     { word: 'THE (เดอะ)', meaning: 'บ้าน' },
   ],
+  // กองรูปโพสต์ (รูปแรกอยู่บนสุด)
+  posts: [
+    'SEA: Explore, Imagine, Dream, Possibility กับทีม O-SHOO ริมทะเล',
+    'ทำไมต้องทะเล? สำหรับเด็กบางคน ทะเลอาจเป็นโลกอีกใบที่อยู่ไกลออกไป',
+    'ทำไมต้องพาทะเลขึ้นดอย?',
+    'See You in the Sea: ระบายสีปลาตามจินตนาการ แล้วพาลงทะเลด้วย Spatial Sound',
+    'Feel the Beach (Beat): Special Performance DJ แนว Afro House',
+    'Imaginary Dream Ocean: ทะเลฝันในจินตนาการผ่าน Sand Mandala',
+    'Ocean Treasure Charm: พวงกุญแจจากขยะทะเล',
+    'ชวนทุกคนมาสัมผัส The Ocean ที่ Thanya Park วันที่ 24–29 กันยายน 2569',
+    'เราไม่ได้แค่พาทะเลขึ้นดอย เรากำลังพา “โอกาส” ขึ้นไปด้วย',
+  ],
   social: {
     instagram: 'https://www.instagram.com/o_shoo.theocean/',
     facebook: 'https://www.facebook.com/share/p/1BxY2KkpvG/',
