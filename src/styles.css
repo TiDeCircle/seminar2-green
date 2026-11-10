@@ -2031,7 +2031,8 @@ a {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(72px, 10vw, 120px) 0;
+  /* เผื่อขอบล่างให้เนินของ footer ทับ */
+  padding: clamp(72px, 10vw, 120px) 0 calc(clamp(72px, 10vw, 120px) + max(100vw, 900px) * 308 / 2400 * 0.52);
   color: var(--white);
   background: var(--collab-brown);
 }
@@ -2236,9 +2237,12 @@ a {
 }
 
 /* ───────── Footer ───────── */
+/* ให้ท้องฟ้าโปร่งของรูปเนินทับขอบล่าง section ก่อนหน้า เนินจะต่อกับพื้นหลังด้านบนพอดี
+   (ภาพเนิน 2400×308 ส่วนโปร่งลึกสุด ~52% ของความสูง) */
 .footer {
   position: relative;
-  background: var(--navy-900);
+  z-index: 1;
+  margin-top: calc(max(100vw, 900px) * 308 / 2400 * -0.52);
   overflow: hidden;
 }
 
