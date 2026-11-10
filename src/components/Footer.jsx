@@ -1,7 +1,15 @@
 import { EVENT, SOCIAL } from '../data.js'
 import { NAV } from './Header.jsx'
 
-const ICONS = {
+export const ICONS = {
+  facebook: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M13.4 21v-7.7h2.6l.4-3h-3V8.4c0-.9.3-1.5 1.5-1.5h1.6V4.2c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.7v3h2.6V21h3.1z"
+      />
+    </svg>
+  ),
   instagram: (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />

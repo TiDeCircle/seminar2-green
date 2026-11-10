@@ -5,6 +5,7 @@ import Schedule from './components/Schedule.jsx'
 import MapSection from './components/MapSection.jsx'
 import FloorPlan from './components/FloorPlan.jsx'
 import Register from './components/Register.jsx'
+import Collab from './components/Collab.jsx'
 import Footer from './components/Footer.jsx'
 import DevCredits from './components/DevCredits.jsx'
 import ScrollBar from './components/ScrollBar.jsx'
@@ -24,6 +25,7 @@ export default function App() {
         <MapSection />
         {SHOW_FLOORPLAN && <FloorPlan />}
         <Register />
+        <Collab />
       </main>
       <Footer />
       <DevCredits />

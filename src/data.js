@@ -13,6 +13,21 @@ export const SOCIAL = {
   tiktok: 'https://www.tiktok.com/@greeninaction.space',
 }
 
+// ช่วง collab ก่อน footer — ช่องไหนยังไม่มีลิงก์ใส่ '' ไว้ ปุ่มจะขึ้นว่า "เร็ว ๆ นี้"
+export const COLLAB = {
+  name: 'O-SHOO The Ocean',
+  quote: 'นิทรรศการที่ดี ไม่จำเป็นต้องมีแค่ที่กรุงเทพ',
+  meanings: [
+    { word: 'O-SHOO (โอะชู่)', meaning: 'สบายดี' },
+    { word: 'THE (เดอะ)', meaning: 'บ้าน' },
+  ],
+  social: {
+    instagram: 'https://www.instagram.com/o_shoo.theocean/',
+    facebook: 'https://www.facebook.com/share/p/1BxY2KkpvG/',
+    tiktok: 'https://www.tiktok.com/@oshoo.the.ocean',
+  },
+}
+
 // เวลาเริ่มงาน (เวลาประเทศไทย) ใช้กับตัวนับถอยหลัง
 export const EVENT_START = '2026-11-20T09:00:00+07:00'
 export const EVENT_END = '2026-11-20T12:00:00+07:00'

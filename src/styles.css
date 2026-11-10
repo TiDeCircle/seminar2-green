@@ -2023,6 +2023,157 @@ a {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* ───────── Collab: O-SHOO The Ocean ───────── */
+/* สีดึงจากโปสเตอร์: ภูเขาน้ำตาลเข้ม + ตัวหนังสือเขียวมะนาว */
+.collab {
+  --collab-brown: #3a2a12;
+  --collab-lime: #d9f28c;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(72px, 10vw, 120px) 0;
+  color: var(--white);
+  background: var(--collab-brown);
+}
+
+.collab__bg {
+  position: absolute;
+  z-index: -1;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  max-width: none;
+  object-fit: cover;
+  object-position: center 60%;
+  filter: blur(18px) saturate(1.2);
+  transform: scale(1.05);
+}
+
+.collab::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(42, 30, 12, 0.92) 0%, rgba(42, 30, 12, 0.75) 45%, rgba(42, 30, 12, 0.35) 100%);
+}
+
+.collab__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+}
+
+.collab__tag {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--collab-lime);
+  color: var(--collab-brown);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.collab__title {
+  margin: 0 0 12px;
+  font-size: clamp(36px, 5.5vw, 60px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--collab-lime);
+}
+
+.collab__quote {
+  margin: 0 0 26px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(19px, 2.2vw, 24px);
+}
+
+.collab__meanings {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 30px;
+  padding-left: 18px;
+  border-left: 3px solid var(--collab-lime);
+}
+
+.collab__meanings div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.collab__meanings dt {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--collab-lime);
+}
+
+.collab__meanings dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.collab__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.collab__btn {
+  min-width: 140px;
+}
+
+.collab__btn-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.collab__btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.collab__poster {
+  justify-self: center;
+  width: min(100%, 400px);
+  height: auto;
+  border-radius: var(--radius);
+  border: 6px solid var(--white);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.6);
+}
+
+.collab__poster.reveal.is-visible {
+  transform: rotate(3deg);
+}
+
+@media (max-width: 860px) {
+  .collab::before {
+    background: linear-gradient(180deg, rgba(42, 30, 12, 0.55) 0%, rgba(42, 30, 12, 0.9) 45%);
+  }
+
+  .collab__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .collab__poster {
+    order: -1;
+    width: min(78%, 320px);
+  }
+
+  .collab__social .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 10px;
+  }
+}
+
 /* ───────── Footer ───────── */
 .footer {
   position: relative;
