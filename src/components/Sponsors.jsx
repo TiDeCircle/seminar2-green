@@ -13,6 +13,14 @@ const CLOUDS = [
   { src: 'cloud-7', left: 54, top: 68, width: 32, speed: 18, delay: -9, flip: true },
 ]
 
+// กังหันยืนบนเนินของ footer (โคนเสาถูกเนินบังเอง) left เป็น % ของความกว้าง, size คูณความสูงพื้นฐาน
+const TURBINES = [
+  { left: 9, size: 1, speed: 8 },
+  { left: 21, size: 0.66, speed: 7 },
+  { left: 80, size: 0.72, speed: 6.5 },
+  { left: 90, size: 1.12, speed: 9 },
+]
+
 function Logo({ sponsor }) {
   const img = <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
   return sponsor.url ? (
@@ -45,6 +53,18 @@ export default function Sponsors() {
               animationDelay: `${c.delay}s`,
             }}
           />
+        ))}
+        {TURBINES.map((t, i) => (
+          <div key={i} className="sponsors__turbine" style={{ left: `${t.left}%`, '--size': t.size }}>
+            <img className="sponsors__tower" src="./images/turbine-tower.webp" alt="" loading="lazy" />
+            <img
+              className="sponsors__rotor"
+              src="./images/guest-rotor.webp"
+              alt=""
+              loading="lazy"
+              style={{ animationDuration: `${t.speed}s` }}
+            />
+          </div>
         ))}
       </div>
       <div className="container">
