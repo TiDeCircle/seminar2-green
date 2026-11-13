@@ -80,6 +80,14 @@ export default function Collab() {
       <div className="container collab__inner">
         <div className="collab__text reveal">
           <p className="collab__tag">Partner</p>
+          <img
+            className="collab__logo"
+            src="./images/oshoo-logo.webp"
+            alt="โอะชู่ THE OCEAN จุดประกายจาก…ปลายดอย"
+            width="640"
+            height="463"
+            loading="lazy"
+          />
           <h2 id="collab-title" className="collab__title">{COLLAB.name}</h2>
           <p className="collab__quote">“{COLLAB.quote}”</p>
           <dl className="collab__meanings">

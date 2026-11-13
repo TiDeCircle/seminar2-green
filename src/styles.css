@@ -1188,6 +1188,11 @@ a {
   font-weight: 700;
 }
 
+/* บนพื้นทอง ตัวหนังสือขาวจางอ่านไม่ออก ใช้น้ำเงินเข้มแทน */
+.timeline__item.is-highlight .timeline__body p {
+  color: var(--navy);
+}
+
 .timeline__item.is-highlight::before {
   background: var(--gold);
   box-shadow: 0 0 0 6px rgba(244, 217, 139, 0.25);
@@ -2031,8 +2036,7 @@ a {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  /* เผื่อขอบล่างให้เนินของ footer ทับ */
-  padding: clamp(72px, 10vw, 120px) 0 calc(clamp(72px, 10vw, 120px) + max(100vw, 900px) * 308 / 2400 * 0.52);
+  padding: clamp(72px, 10vw, 120px) 0;
   color: var(--white);
   background: var(--collab-brown);
 }
@@ -2078,6 +2082,13 @@ a {
   font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.collab__logo {
+  display: block;
+  width: min(100%, 300px);
+  height: auto;
+  margin: 0 0 18px;
 }
 
 .collab__title {
@@ -2233,6 +2244,108 @@ a {
     flex: 1 1 0;
     min-width: 0;
     padding-inline: 10px;
+  }
+}
+
+/* ───────── Sponsors ───────── */
+.sponsors {
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, #0786bd 0%, #12a3c9 55%, #20c2d2 100%);
+  /* เผื่อขอบล่างให้เนินของ footer ทับ */
+  padding-bottom: calc(clamp(72px, 10vw, 120px) + max(100vw, 900px) * 308 / 2400 * 0.52);
+}
+
+.sponsors__sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sponsors__sky .cloud {
+  opacity: 0.85;
+}
+
+.cloud--flip {
+  transform: scaleX(-1);
+}
+
+.sponsors .section-head .muted {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sponsors__grid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 960px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* โลโก้มีกี่อันก็เรียงอยู่กลางแถว */
+.sponsors__grid > li {
+  flex: 0 1 220px;
+}
+
+/* โลโก้วางบนท้องฟ้าโดยตรง ไม่มีการ์ดรอง */
+.sponsor {
+  display: grid;
+  place-items: center;
+  height: 120px;
+  padding: 8px;
+  border-radius: var(--radius);
+  transition: transform 0.25s ease;
+}
+
+.sponsor img {
+  max-width: 100%;
+  max-height: 104px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(7, 26, 61, 0.25));
+}
+
+a.sponsor:hover,
+a.sponsor:focus-visible {
+  transform: translateY(-4px) scale(1.05);
+}
+
+a.sponsor:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 4px;
+}
+
+.sponsor--slot {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+  color: var(--white);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-size: 15px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .sponsors__grid {
+    gap: 12px;
+  }
+
+  .sponsors__grid > li {
+    flex-basis: calc(50% - 6px);
+  }
+
+  .sponsor {
+    height: 96px;
+    padding: 6px;
+  }
+
+  .sponsor img {
+    max-height: 84px;
   }
 }
 

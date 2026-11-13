@@ -40,6 +40,15 @@ export const COLLAB = {
   },
 }
 
+// ผู้สนับสนุน (ต่อจากช่วง O-SHOO) — ใส่ไฟล์โลโก้ไว้ใน public/images แล้วเพิ่มเป็น
+// { name: 'ชื่อแบรนด์', logo: './images/sponsor-xxx.webp', url: 'https://...' } (url ไม่ใส่ก็ได้)
+// ถ้ายังว่าง หน้าเว็บจะแสดงช่องว่างรอโลโก้แทน
+export const SPONSORS = [
+  { name: 'Tao Kae Noi', logo: './images/sponsor-taokaenoi.webp', url: 'https://th.taokaenoiglobal.com/' },
+  { name: 'QUALY', logo: './images/sponsor-qualy.webp', url: 'https://qualydesign.com/thailand/' },
+  { name: 'Lactasoy', logo: './images/sponsor-lactasoy.webp', url: 'https://www.lactasoy.com/' },
+]
+
 // เวลาเริ่มงาน (เวลาประเทศไทย) ใช้กับตัวนับถอยหลัง
 export const EVENT_START = '2026-11-20T09:00:00+07:00'
 export const EVENT_END = '2026-11-20T12:00:00+07:00'

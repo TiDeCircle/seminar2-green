@@ -6,6 +6,7 @@ import MapSection from './components/MapSection.jsx'
 import FloorPlan from './components/FloorPlan.jsx'
 import Register from './components/Register.jsx'
 import Collab from './components/Collab.jsx'
+import Sponsors from './components/Sponsors.jsx'
 import Footer from './components/Footer.jsx'
 import DevCredits from './components/DevCredits.jsx'
 import ScrollBar from './components/ScrollBar.jsx'
@@ -26,6 +27,7 @@ export default function App() {
         {SHOW_FLOORPLAN && <FloorPlan />}
         <Register />
         <Collab />
+        <Sponsors />
       </main>
       <Footer />
       <DevCredits />
