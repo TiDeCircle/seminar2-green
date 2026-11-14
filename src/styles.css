@@ -2329,15 +2329,21 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  gap: 24px clamp(40px, 7vw, 88px);
+  --logo-scale: 1;
+}
+
+/* ช่องว่างรอโลโก้ใช้ความกว้างเท่ากัน ส่วนโลโก้จริงกว้างตามตัว ระยะห่างจึงเท่ากันทุกคู่ */
+.sponsors__grid.is-empty {
   gap: 16px;
 }
 
-/* โลโก้มีกี่อันก็เรียงอยู่กลางแถว */
-.sponsors__grid > li {
+.sponsors__grid.is-empty > li {
   flex: 0 1 220px;
 }
 
-/* โลโก้วางบนท้องฟ้าโดยตรง ไม่มีการ์ดรอง */
+/* โลโก้วางบนท้องฟ้าโดยตรง ไม่มีการ์ดรอง ความสูงตั้งจาก Sponsors.jsx ให้แต่ละอันดูหนักเท่ากัน */
 .sponsor {
   display: grid;
   place-items: center;
@@ -2348,9 +2354,10 @@ a {
 }
 
 .sponsor img {
-  max-width: 100%;
-  max-height: 104px;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  max-width: none;
+  height: calc(var(--logo-h) * var(--logo-scale));
   filter: drop-shadow(0 10px 18px rgba(7, 26, 61, 0.25));
 }
 
@@ -2378,20 +2385,17 @@ a.sponsor:focus-visible {
 
 @media (max-width: 600px) {
   .sponsors__grid {
-    gap: 12px;
+    gap: 12px 32px;
+    --logo-scale: 0.72;
   }
 
-  .sponsors__grid > li {
+  .sponsors__grid.is-empty > li {
     flex-basis: calc(50% - 6px);
   }
 
   .sponsor {
     height: 96px;
     padding: 6px;
-  }
-
-  .sponsor img {
-    max-height: 84px;
   }
 }
 

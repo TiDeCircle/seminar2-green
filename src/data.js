@@ -44,9 +44,10 @@ export const COLLAB = {
 // { name: 'ชื่อแบรนด์', logo: './images/sponsor-xxx.webp', url: 'https://...' } (url ไม่ใส่ก็ได้)
 // ถ้ายังว่าง หน้าเว็บจะแสดงช่องว่างรอโลโก้แทน
 export const SPONSORS = [
-  { name: 'Tao Kae Noi', logo: './images/sponsor-taokaenoi.webp', url: 'https://th.taokaenoiglobal.com/' },
-  { name: 'QUALY', logo: './images/sponsor-qualy.webp', url: 'https://qualydesign.com/thailand/' },
-  { name: 'Lactasoy', logo: './images/sponsor-lactasoy.webp', url: 'https://www.lactasoy.com/' },
+  // width / height คือขนาดไฟล์โลโก้ ใช้คำนวณให้แต่ละอันดูใหญ่พอ ๆ กัน (weight ปรับเพิ่ม/ลดเฉพาะอันได้)
+  { name: 'Tao Kae Noi', logo: './images/sponsor-taokaenoi.webp', width: 225, height: 240, url: 'https://th.taokaenoiglobal.com/' },
+  { name: 'QUALY', logo: './images/sponsor-qualy.webp', width: 179, height: 42, url: 'https://qualydesign.com/thailand/' },
+  { name: 'Lactasoy', logo: './images/sponsor-lactasoy.webp', width: 517, height: 240, weight: 1.05, url: 'https://www.lactasoy.com/' },
 ]
 
 // เวลาเริ่มงาน (เวลาประเทศไทย) ใช้กับตัวนับถอยหลัง

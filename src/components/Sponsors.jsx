@@ -21,8 +21,22 @@ const TURBINES = [
   { left: 90, size: 1.12, speed: 9 },
 ]
 
+// พื้นที่โลโก้ที่ต้องการ (px²) โลโก้ทรงสูงจะสูงกว่า โลโก้ทรงยาวจะเตี้ยกว่า แต่ดูหนักพอ ๆ กัน
+const LOGO_AREA = 13000
+
 function Logo({ sponsor }) {
-  const img = <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+  const { width: w, height: h, weight = 1 } = sponsor
+  const logoH = Math.round(Math.sqrt(LOGO_AREA / (w / h)) * weight)
+  const img = (
+    <img
+      src={sponsor.logo}
+      alt={sponsor.name}
+      width={w}
+      height={h}
+      loading="lazy"
+      style={{ '--logo-h': `${logoH}px` }}
+    />
+  )
   return sponsor.url ? (
     <a className="sponsor" href={sponsor.url} target="_blank" rel="noreferrer">
       {img}
