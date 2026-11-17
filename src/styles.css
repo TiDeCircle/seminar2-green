@@ -2325,12 +2325,12 @@ a {
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  max-width: 960px;
+  max-width: 1120px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 24px clamp(40px, 7vw, 88px);
+  gap: 24px clamp(32px, 5vw, 64px);
   --logo-scale: 1;
 }
 
@@ -2385,7 +2385,7 @@ a.sponsor:focus-visible {
 
 @media (max-width: 600px) {
   .sponsors__grid {
-    gap: 12px 32px;
+    gap: 12px 20px;
     --logo-scale: 0.72;
   }
 
@@ -2432,7 +2432,7 @@ a.sponsor:focus-visible {
 }
 
 .footer__logo {
-  width: 120px;
+  width: 150px;
   height: auto;
   padding-right: clamp(20px, 3vw, 36px);
   border-right: 1px solid rgba(255, 255, 255, 0.7);

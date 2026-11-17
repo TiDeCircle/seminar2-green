@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="container footer__grid">
           <img
             className="footer__logo"
-            src="./images/logo-outline.webp"
+            src="./images/logo-green.webp"
             alt="Green in Action"
             width="700"
             height="292"
