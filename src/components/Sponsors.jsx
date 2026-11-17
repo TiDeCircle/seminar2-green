@@ -15,10 +15,10 @@ const CLOUDS = [
 
 // กังหันยืนบนเนินของ footer (โคนเสาถูกเนินบังเอง) left เป็น % ของความกว้าง, size คูณความสูงพื้นฐาน
 const TURBINES = [
-  { left: 9, size: 1, speed: 8 },
-  { left: 21, size: 0.66, speed: 7 },
-  { left: 80, size: 0.72, speed: 6.5 },
-  { left: 90, size: 1.12, speed: 9 },
+  { left: 7, size: 1, speed: 8 },
+  { left: 18, size: 0.46, speed: 7 },
+  { left: 83, size: 0.5, speed: 6.5 },
+  { left: 93, size: 1.08, speed: 9 },
 ]
 
 // พื้นที่โลโก้ที่ต้องการ (px²) โลโก้ทรงสูงจะสูงกว่า โลโก้ทรงยาวจะเตี้ยกว่า แต่ดูหนักพอ ๆ กัน

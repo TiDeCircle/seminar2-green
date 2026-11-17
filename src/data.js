@@ -45,7 +45,15 @@ export const COLLAB = {
 // ถ้ายังว่าง หน้าเว็บจะแสดงช่องว่างรอโลโก้แทน
 export const SPONSORS = [
   // width / height คือขนาดไฟล์โลโก้ ใช้คำนวณให้แต่ละอันดูใหญ่พอ ๆ กัน (weight ปรับเพิ่ม/ลดเฉพาะอันได้)
-  { name: 'Tao Kae Noi', logo: './images/sponsor-taokaenoi.webp', width: 225, height: 240, url: 'https://th.taokaenoiglobal.com/' },
+  {
+    name: 'eisa — Educational Institution Support Activity by ThaiBev',
+    logo: './images/sponsor-eisa.webp',
+    width: 232,
+    height: 300,
+    url: 'https://sustainability.thaibev.com/2025/en/education.php',
+  },
+  { name: 'est Cola', logo: './images/sponsor-est.webp', width: 339, height: 300, url: 'https://www.sermsukplc.com/brand/est' },
+  { name: 'Major Cineplex', logo: './images/sponsor-major.webp', width: 188, height: 300, url: 'https://www.majorcineplex.com/' },
   { name: 'QUALY', logo: './images/sponsor-qualy.webp', width: 179, height: 42, url: 'https://qualydesign.com/thailand/' },
   { name: 'Lactasoy', logo: './images/sponsor-lactasoy.webp', width: 517, height: 240, weight: 1.05, url: 'https://www.lactasoy.com/' },
 ]
